@@ -5,9 +5,9 @@ use crate::characters::input::Player;  // Changed from movement::Player
 use crate::characters::state::CharacterState;  // Line update alert
 use crate::characters::physics::Velocity;  // Line update alert
 use crate::characters::facing::Facing;  // Line update alert
+use crate::characters::collider::Collider; 
+use crate::config::player::{PLAYER_SCALE, PLAYER_Z_POSITION}; 
 
-const PLAYER_SCALE: f32 = 0.8;
-const PLAYER_Z_POSITION: f32 = 20.0;
 
 #[derive(Resource, Default)]
 pub struct CurrentCharacterIndex {
@@ -99,6 +99,7 @@ pub fn initialize_player_character(
             CharacterState::default(),   // Line update alert
             Velocity::default(),         // Line update alert  
             Facing::default(),           // Line update alert
+            Collider::default(),
             AnimationTimer(Timer::from_seconds(DEFAULT_ANIMATION_FRAME_TIME, TimerMode::Repeating)),
             character_entry.clone(),
             sprite,
