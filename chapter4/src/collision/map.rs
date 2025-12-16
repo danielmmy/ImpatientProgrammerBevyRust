@@ -204,8 +204,6 @@ impl CollisionMap {
     
     #[cfg(debug_assertions)]
     pub fn origin(&self) -> Vec2 { Vec2::new(self.origin_x, self.origin_y) }
-    
-    #[cfg(debug_assertions)]
-    pub fn tiles(&self) -> &[TileType] { &self.tiles }
+
 
 }

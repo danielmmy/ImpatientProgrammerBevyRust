@@ -119,7 +119,6 @@ fn convert_water_edges_to_shore(map: &mut CollisionMap) {
         }
     }
 
-    let shore_count = shores.len();
     for (x, y) in shores {
         map.set_tile(x, y, TileType::Shore);
     }

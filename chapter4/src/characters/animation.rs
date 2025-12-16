@@ -138,7 +138,6 @@ pub fn animations_playback(
         // Advance animation
         timer.tick(time.delta());
         if timer.just_finished() {
-            let old_index = atlas.index;
             atlas.index = clip.next(atlas.index);
         }
     }
