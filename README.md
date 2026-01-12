@@ -32,12 +32,18 @@ Let's make the player interact with the world properly, no more walking through 
 
 ![Chapter 4 Demo](assets/book_assets/chapter4/chapter4.gif)
 
+### [Chapter 5: Let There Be Pickups](https://aibodh.com/posts/bevy-rust-game-development-chapter-5/)
+
+Build an inventory system to collect items from the world, then zoom in and add smooth camera follow.
+
+![Chapter 5 Demo](assets/book_assets/chapter5/ch5.gif)
+
 ## Getting Started
 
 Each chapter has its own directory with a complete, runnable project. Navigate to the chapter directory you want to explore and run:
 
 ```bash
-cd chapter1  # or chapter2, chapter3, chapter4
+cd chapter1  # or chapter2, chapter3, chapter4, chapter5
 cargo run
 ```
 
@@ -46,4 +52,3 @@ cargo run
 - [Join our Discord community](https://discord.com/invite/cD9qEsSjUH) to get notified when new chapters drop
 - Connect with me on [Twitter/X](https://x.com/heyfebin)
 - Connect with me on [LinkedIn](https://www.linkedin.com/in/febinjohnjames/)
-
