@@ -12,7 +12,6 @@ pub enum ItemKind {
     Plant2,
     Plant3,
     Plant4,
-    TreeStump,
 }
 
 impl ItemKind {
@@ -22,7 +21,6 @@ impl ItemKind {
             ItemKind::Plant2 => "Flower",
             ItemKind::Plant3 => "Mushroom",
             ItemKind::Plant4 => "Fern",
-            ItemKind::TreeStump => "Wood",
         }
     }
 }
@@ -32,7 +30,6 @@ impl fmt::Display for ItemKind {
         f.write_str(self.display_name())
     }
 }
-
 
 #[derive(Component, Debug)]
 pub struct Pickable {
@@ -53,7 +50,6 @@ impl Pickable {
 pub struct Inventory {
     items: HashMap<ItemKind, u32>,
 }
-
 
 impl Inventory {
     /// Add an item to the inventory, returns new count.

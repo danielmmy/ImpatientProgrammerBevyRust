@@ -159,23 +159,6 @@ fn create_spawner(
         (Some(TileType::Grass), Some(ItemKind::Plant4)) => |e: &mut EntityCommands| {
             e.insert((TileMarker::new(TileType::Grass), Pickable::new(ItemKind::Plant4)));
         },
-        
-        // Pickable without tile type
-        (None, Some(ItemKind::Plant1)) => |e: &mut EntityCommands| {
-            e.insert(Pickable::new(ItemKind::Plant1));
-        },
-        (None, Some(ItemKind::Plant2)) => |e: &mut EntityCommands| {
-            e.insert(Pickable::new(ItemKind::Plant2));
-        },
-        (None, Some(ItemKind::Plant3)) => |e: &mut EntityCommands| {
-            e.insert(Pickable::new(ItemKind::Plant3));
-        },
-        (None, Some(ItemKind::Plant4)) => |e: &mut EntityCommands| {
-            e.insert(Pickable::new(ItemKind::Plant4));
-        },
-        (None, Some(ItemKind::TreeStump)) => |e: &mut EntityCommands| {
-            e.insert(Pickable::new(ItemKind::TreeStump));
-        },
 
         // Default: no components
         _ => |_: &mut EntityCommands| {},

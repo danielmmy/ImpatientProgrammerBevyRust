@@ -579,7 +579,7 @@ pub fn build_props_layer(
     );
     terrain_model_builder.create_model(
         stump_prop.clone(),
-        vec![SpawnableAsset::new("tree_stump_2").with_tile_type(TileType::Tree).with_pickable(ItemKind::TreeStump)],
+        vec![SpawnableAsset::new("tree_stump_2").with_tile_type(TileType::Tree)],
     );
     terrain_model_builder.create_model(
         stump_prop.clone(),
