@@ -38,12 +38,18 @@ Build an inventory system to collect items from the world, then zoom in and add 
 
 ![Chapter 5 Demo](assets/book_assets/chapter5/ch5.gif)
 
+### [Chapter 6: Let There Be Particles](https://aibodh.com/posts/bevy-rust-game-development-chapter-6/)
+
+Build a combat system with magical powers and create stunning particle effects. Learn custom shaders, additive blending, and how to make your game feel alive.
+
+![Chapter 6 Demo](assets/book_assets/chapter6/ch6.gif)
+
 ## Getting Started
 
 Each chapter has its own directory with a complete, runnable project. Navigate to the chapter directory you want to explore and run:
 
 ```bash
-cd chapter1  # or chapter2, chapter3, chapter4, chapter5
+cd chapter1  # or chapter2, chapter3, chapter4, chapter5, chapter6
 cargo run
 ```
 
