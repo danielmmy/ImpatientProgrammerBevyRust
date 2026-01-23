@@ -5,6 +5,8 @@ mod collision;
 mod config;
 mod inventory;
 mod camera;
+mod combat;
+mod particles;
 
 use bevy::{
     prelude::*,
@@ -40,6 +42,8 @@ fn main() {
         .add_plugins(inventory::InventoryPlugin)
         .add_plugins(collision::CollisionPlugin)
         .add_plugins(characters::CharactersPlugin)
+        .add_plugins(combat::CombatPlugin)
+        .add_plugins(particles::ParticlesPlugin)
         .add_systems(Startup, setup_generator) // Line update alert - remove setup_camera here
         .run();
 }
