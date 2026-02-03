@@ -52,7 +52,7 @@ pub fn handle_power_input(
 
 
 
-fn spawn_projectile(
+pub fn spawn_projectile(
     commands: &mut Commands,
     position: Vec3,
     power_type: PowerType,

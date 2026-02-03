@@ -14,6 +14,14 @@ pub mod pickup {
     pub const DEFAULT_RADIUS: f32 = 40.0;
 }
 
+pub mod enemy {
+    /// Z-position for enemy rendering (same as player for consistent layering)
+    pub const ENEMY_Z_POSITION: f32 = 20.0;
+
+    /// Visual scale of enemy sprites (same as player for consistency)
+    pub const ENEMY_SCALE: f32 = 1.2;
+} 
+
 /// Map/terrain configuration
 pub mod map {
     /// Size of a single tile in world units (64px base * 1.0 scale = 64)
