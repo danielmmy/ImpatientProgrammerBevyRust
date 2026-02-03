@@ -65,6 +65,26 @@ Note for Linux users on Wayland: if you see rendering artifacts, run the app wit
 WINIT_UNIX_BACKEND=x11 WAYLAND_DISPLAY= cargo run
 ```
 
+> **Community Tip**: This optimization was pointed out by one of our [community members](https://github.com/jamesfebin/ImpatientProgrammerBevyRust/issues/1), thank you for helping make this tutorial better!
+
+Bevy's default debug configuration can lead to performance issues: scenes that should run smoothly might drop to unplayable framerates, or large assets might take minutes to load.
+
+The Bevy team [documents this issue](https://bevy.org/learn/quick-start/getting-started/setup/#compile-with-performance-optimizations) and provides a solution.
+
+**Add these optimizations to your `Cargo.toml`:**
+
+```toml
+# At the bottom of your Cargo.toml
+
+# Enable a small amount of optimization in the dev profile
+[profile.dev]
+opt-level = 1
+
+# Enable a large amount of optimization in the dev profile for dependencies
+[profile.dev.package."*"]
+opt-level = 3
+```
+
 ## Community
 
 - [Join our Discord community](https://discord.com/invite/cD9qEsSjUH) to get notified when new chapters drop
