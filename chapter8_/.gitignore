@@ -2,7 +2,7 @@
 /debug
 /target
 **/*.rs.bk
-**/target
+
 # Byproducts of coverage and profiling
 *.profraw
 
@@ -12,4 +12,3 @@
 # Local tooling state
 .specstory
 .cursorindexingignore
-#chapter8_
