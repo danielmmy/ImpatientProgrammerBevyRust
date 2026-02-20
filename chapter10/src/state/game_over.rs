@@ -1,11 +1,15 @@
 // src/state/game_over.rs
 use bevy::prelude::*;
 
+use crate::characters::input::Player;
 use crate::characters::spawn::PlayerSpawned;
 use crate::combat::healthbar::HealthBarOwner;
 use crate::combat::systems::{Projectile, ProjectileEffect};
 use crate::enemy::{spawn::EnemiesSpawned, Enemy};
 use crate::particles::components::{Particle, ParticleEmitter};
+use crate::collision::{TileMarker, CollisionMapBuilt};
+use crate::inventory::Inventory;
+use crate::map::generate::MapReady;
 
 use super::GameState;
 
@@ -53,13 +57,15 @@ pub fn handle_restart_input(
 ) {
     if input.just_pressed(KeyCode::KeyR) {
         info!("Restarting game...");
-        next_state.set(GameState::Playing);
+        next_state.set(GameState::Loading);
     }
 }
 
 /// Despawns all gameplay entities and resets spawn flags so they re-trigger.
 pub fn cleanup_game_world(
     mut commands: Commands,
+    tiles: Query<Entity, With<TileMarker>>,
+    players: Query<Entity, With<Player>>,
     enemies: Query<Entity, With<Enemy>>,
     projectiles: Query<Entity, With<Projectile>>,
     projectile_effects: Query<Entity, With<ProjectileEffect>>,
@@ -68,9 +74,16 @@ pub fn cleanup_game_world(
     healthbars: Query<Entity, With<HealthBarOwner>>,
     mut player_spawned: ResMut<PlayerSpawned>,
     mut enemies_spawned: ResMut<EnemiesSpawned>,
+    mut collision_map_built: ResMut<CollisionMapBuilt>,
+    mut inventory: ResMut<Inventory>
 ) {
-    let mut count = 0;
 
+    for entity in tiles.iter() {
+        commands.entity(entity).despawn();
+    }
+    for entity in players.iter() {
+        commands.entity(entity).despawn();
+    }
     for entity in enemies.iter() {
         commands.entity(entity).despawn();
     }
@@ -92,5 +105,9 @@ pub fn cleanup_game_world(
 
     player_spawned.0 = false;
     enemies_spawned.0 = false;
+
+    collision_map_built.0 = false;
+    inventory.set_items(Default::default());
+    commands.remove_resource::<MapReady>();
 
 }

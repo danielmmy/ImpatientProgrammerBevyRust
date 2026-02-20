@@ -47,7 +47,7 @@ impl SpawnableAsset {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Resource)]
 pub struct TilemapHandles {
     pub image: Handle<Image>,
     pub layout: Handle<TextureAtlasLayout>,
@@ -161,6 +161,8 @@ fn create_spawner(
         },
 
         // Default: no components
-        _ => |_: &mut EntityCommands| {},
+        _ => |e: &mut EntityCommands| {
+            e.insert(TileMarker::new(TileType::Empty)); 
+        },
     }
 }

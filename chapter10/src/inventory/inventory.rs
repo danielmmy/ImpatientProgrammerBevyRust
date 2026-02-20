@@ -1,12 +1,14 @@
 // src/inventory/inventory.rs
 use bevy::prelude::*;
+use serde::{Serialize, Deserialize};
 use std::collections::HashMap;
 use std::fmt;
+
 
 use crate::config::pickup::DEFAULT_RADIUS;
 
 /// Types of items that can be collected.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
 pub enum ItemKind {
     Plant1,
     Plant2,
@@ -72,5 +74,15 @@ impl Inventory {
             .collect();
         parts.sort();
         parts.join(", ")
+    }
+
+     /// Get a reference to the items map for serialization.
+     pub fn items(&self) -> &HashMap<ItemKind, u32> {
+        &self.items
+    }
+
+    /// Replace the entire items map (used when loading saves).
+    pub fn set_items(&mut self, items: HashMap<ItemKind, u32>) {
+        self.items = items;
     }
 }

@@ -2,11 +2,13 @@ mod game_over;
 mod game_state;
 mod loading;
 mod pause;
+pub mod main_menu;
 
 use bevy::prelude::*;
 use crate::characters::spawn::CharactersListResource;
 use crate::characters::config::CharactersList;
 use crate::map::generate::MapReady;
+use crate::save::SaveLoadUIState;
 
 pub use game_state::GameState;
 
@@ -16,7 +18,21 @@ impl Plugin for StatePlugin {
     fn build(&self, app: &mut App) {
         app
             .init_state::<GameState>()
-            
+            .add_systems(
+                OnEnter(GameState::MainMenu),
+                (game_over::cleanup_game_world, main_menu::spawn_main_menu).chain(),
+            )
+            .add_systems(OnExit(GameState::MainMenu), main_menu::despawn_main_menu)
+            .add_systems(
+                Update,
+                main_menu::handle_main_menu_buttons
+                    .run_if(in_state(GameState::MainMenu)),
+            )
+            .add_systems(
+                Update,
+                main_menu::handle_main_menu_hover
+                    .run_if(in_state(GameState::MainMenu)),
+            )
             // Loading state systems
             .add_systems(OnEnter(GameState::Loading), loading::spawn_loading_screen)
             .add_systems(Update, (
@@ -28,8 +44,17 @@ impl Plugin for StatePlugin {
             ))
                 // Pause state systems
             .add_systems(OnEnter(GameState::Paused), pause::spawn_pause_menu)
-            .add_systems(OnExit(GameState::Paused), pause::despawn_pause_menu)
-            
+            .add_systems(OnExit(GameState::Paused), (pause::despawn_pause_menu, close_save_load_ui))
+            .add_systems(
+                Update,
+                pause::handle_pause_buttons
+                    .run_if(in_state(GameState::Paused)),
+            )
+            .add_systems(
+                Update,
+                pause::handle_pause_hover
+                    .run_if(in_state(GameState::Paused)),
+            )
             // Pause toggle (works in Playing or Paused states)
             .add_systems(Update, 
                 toggle_pause.run_if(in_state(GameState::Playing).or(in_state(GameState::Paused)))
@@ -66,8 +91,14 @@ fn toggle_pause(
     input: Res<ButtonInput<KeyCode>>,
     current_state: Res<State<GameState>>,
     mut next_state: ResMut<NextState<GameState>>,
+    ui_state: Res<SaveLoadUIState>, 
 ) {
     if input.just_pressed(KeyCode::Escape) {
+
+        if ui_state.active {
+            return;
+        }
+
         match current_state.get() {
             GameState::Playing => {
                 info!("Game paused");
@@ -80,4 +111,8 @@ fn toggle_pause(
             _ => {}
         }
     }
+}
+
+fn close_save_load_ui(mut ui_state: ResMut<SaveLoadUIState>) {
+    ui_state.active = false;
 }

@@ -8,6 +8,7 @@ mod camera;
 mod combat;
 mod particles;
 mod enemy;
+mod save;
 
 use bevy::{
     prelude::*,
@@ -16,7 +17,7 @@ use bevy::{
 
 use bevy_procedural_tilemaps::prelude::*;
 use crate::camera::CameraPlugin;
-use crate::map::generate::{setup_generator, poll_map_generation};
+use crate::map::generate::{setup_generator, prepare_tilemap_handles_resource, poll_map_generation};
 use crate::state::GameState;
 
 fn main() {
@@ -46,7 +47,9 @@ fn main() {
         .add_plugins(combat::CombatPlugin)
         .add_plugins(enemy::EnemyPlugin) 
         .add_plugins(particles::ParticlesPlugin)
-        .add_systems(Startup, setup_generator)
+        .add_plugins(save::SavePlugin)
+        .add_systems(Startup, prepare_tilemap_handles_resource)
+        .add_systems(OnEnter(GameState::Loading), setup_generator)
         .add_systems(Update, poll_map_generation.run_if(in_state(GameState::Loading)))
         .run();
 }
